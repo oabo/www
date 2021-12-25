@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选股</title>
+</head>
+<body>
+
+
+<div align="center">
+
+    <p>  次数,市值(亿)  </p>
+
+<table cellspacing="0" cellpadding="0" width="100%" border="1">
+    {% for a in all %}
+        <tr>
+            {% for aa in a %}
+                {% if aa in buyed %}
+            <td><font color="#FF0000">{{aa}}</font></td>
+                {% else %}
+                     <td>{{aa}}</td>
+                {% endif %}
+            {% endfor %}
+
+        </tr>
+    {% endfor %}
+
+
+</table>
+</div>
+
+</body>
+</html>

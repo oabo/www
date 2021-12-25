@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Pings</title>
+
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='brython.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='brython_stdlib.js') }}"></script>
+
+    <style>
+        @import "/static/style.css";
+        body{text-align:center}
+    </style>
+
+</head>
+<body>
+
+
+<div>
+    <p><font id="title" size='18'>redline的监控</font>    <a id="count">刷新时间</a>    </p>
+    <a id = nav>    </a>
+
+</div>
+
+
+<div>
+{% block content %}
+{% endblock %}
+
+</div>
+
+
+<div>     footer </div>
+
+
+
+<script type="text/python">
+from browser import document, html ,window,ajax
+from browser.html import TABLE, TR, TH, TD,NAV,A
+from javascript import this
+from browser import bind, websocket
+from browser.widgets.dialog import InfoDialog
+import json
+import time
+
+class process_nav:
+    def __init__(self):
+
+
+
+class my:
+    def __init__(self):
+        self.active = '全部'
+
+        self.ws = None
+        #self.process_vue()
+        self.open_ws()
+        self.count = 0
+
+
+        self.nav_list=[]
+        self.get_nav()
+
+
+
+    def onclick(self,ev):
+        print(ev.target.text)
+        id = ev.target.id
+        self.set_backgroundcolor_nav_all()
+        document.getElementById(id).style.backgroundColor = "#e35885"
+        self.active = ev.target.text
+        self.ws.send('点击了其他地区，额外推送一次')
+
+    def set_backgroundcolor_nav_all(self):
+        for id in self.nav_list:
+            document.getElementById(id).style.backgroundColor = "#5597b4"
+
+    def process_nav(self):
+        nav = NAV()
+
+
+        for n in self.nav_list:
+            a = A(n,id =n)
+            a.bind("click", self.onclick)
+            nav <= a
+        document['nav'] <= nav
+
+
+
+    def read(self,f):
+        data = f.read()
+        self.nav_list = json.loads(data)
+        self.nav_list.insert(0,'全部')
+        self.process_nav()
+
+    def get_nav(self):
+        ajax.get("nav.json",oncomplete=self.read)
+
+
+
+</script>
+
+</body>
+</html>
