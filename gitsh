@@ -1,13 +1,12 @@
 #!/bin/bash
 
-name=www-info
 
 git config --global user.email "99791182@163.com"
-  git config --global user.name "oabo"
+git config --global user.name "oabo"
 
 git init
 git add .
 git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/oabo/www-info.git
-git push -u origin main
+git branch -M www-info
+git remote add origin https://github.com/oabo/www.git
+git push -u origin www-info
